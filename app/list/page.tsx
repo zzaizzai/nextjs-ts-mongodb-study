@@ -7,6 +7,8 @@ export default async function Product() {
     let db = (await clientPromise).db('nextjs-ts')
     let result = await db.collection('product').find().toArray();
 
+
+    
     return (
         <div >
             {result.map((a: any, i: number) => {
