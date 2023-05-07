@@ -12,10 +12,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.log(session)
     console.log(req.body)
 
+    if (!req.body?.title || !req.body?.content) {
+        res.setHeader("location", "/write/product");
+        res.statusCode = 302;
+        res.end();
+        return;
+    }
+
+    if (session == null) {
+        res.setHeader("location", "/list/product");
+        res.statusCode = 302;
+        res.end();
+        return;
+    }
+
 
     if (req.method == "POST") {
-
-
         res.setHeader("location", "/list/product");
         res.statusCode = 302;
         res.end();
