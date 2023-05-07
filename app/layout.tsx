@@ -1,7 +1,10 @@
+'use client'
+
 import './globals.css'
 import { Inter } from 'next/font/google'
 import Link from "next/link";
-
+import NavProfileStatus from '@/components/NavProfileStatus'
+import { SessionProvider } from "next-auth/react"
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,13 +18,23 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
   return (
     <html lang="en">
-      <div className='navbar'>
-        <Link className='navbar-item' href="/">Home</Link>
-        <Link className='navbar-item' href="/list">List</Link>
-        <div className={inter.className}>{children}</div>
-      </div>
+      <SessionProvider>
+        <body>
+          <div>
+            <div className='navbar'>
+              <Link className='navbar-item' href="/">Home</Link>
+              <Link className='navbar-item' href="/list/product">List</Link>
+              <div className='login-button'><NavProfileStatus /></div>
+            </div>
+            <div>
+              {children}
+            </div>
+          </div>
+        </body>
+      </SessionProvider>
     </html>
   )
 }
